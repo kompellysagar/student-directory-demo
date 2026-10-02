@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: student-database-api
+    runtime: docker
+    plan: free
+    branch: main
+    autoDeployTrigger: off
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./students.db

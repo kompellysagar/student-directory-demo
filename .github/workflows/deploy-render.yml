@@ -1,0 +1,30 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: render-production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Trigger Render deploy
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+    steps:
+      - name: Skip until Render is configured
+        if: env.RENDER_DEPLOY_HOOK_URL == ''
+        run: echo "Add RENDER_DEPLOY_HOOK_URL to repository Actions secrets to enable deployments."
+      - name: Trigger deployment
+        if: env.RENDER_DEPLOY_HOOK_URL != ''
+        run: |
+          curl --fail --silent --show-error \
+            --request POST \
+            --max-time 30 \
+            "$RENDER_DEPLOY_HOOK_URL"
