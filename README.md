@@ -122,12 +122,10 @@ The included GitHub Actions workflow triggers a Render deploy when code is pushe
 
 ### One-time setup
 
-1. Create an empty GitHub repository.
-2. Push this project to the `main` branch using the Git commands below.
-3. In Render, create a new **Blueprint** and connect the GitHub repository. Render reads `render.yaml` and creates the web service. Wait for its first deploy to finish.
-4. In that Render service, open **Settings** and create a **Deploy Hook**.
-5. In the GitHub repository, open **Settings → Secrets and variables → Actions → New repository secret**. Name it `RENDER_DEPLOY_HOOK_URL` and paste the hook URL as the secret value.
-6. Push a new commit to `main`, or open **Actions → Deploy to Render → Run workflow** to deploy manually.
+1. Open the [student-directory-demo repository](https://github.com/kompellysagar/student-directory-demo) in Render by creating a new **Blueprint** and connecting your GitHub account. Render reads `render.yaml` and creates the web service. Wait for its first deploy to finish.
+2. In that Render service, open **Settings** and create a **Deploy Hook**.
+3. In the GitHub repository, open **Settings → Secrets and variables → Actions → New repository secret**. Name it `RENDER_DEPLOY_HOOK_URL` and paste the hook URL as the secret value.
+4. Push a new commit to `main`, or open **Actions → Deploy to Render → Run workflow** to deploy manually.
 
 Keep the deploy hook URL private. The workflow sends it to Render without printing it in the job log. See [Render's deploy hook guide](https://render.com/docs/deploy-hooks) for details.
 
@@ -135,19 +133,17 @@ The workflow safely skips deployment until the repository secret is configured, 
 
 The starter blueprint uses SQLite. Render's default service filesystem is ephemeral, so student records added after launch can be lost when the service restarts or redeploys. The fictional sample data is re-created when the database is first initialized. For durable hosted records, switch to a managed database such as PostgreSQL before using real data. See [Render's filesystem and disk documentation](https://render.com/docs/disks).
 
-### Push the project
+### Push future changes
 
-Add the GitHub repository as `origin` from this project folder:
+The project is already published at [github.com/kompellysagar/student-directory-demo](https://github.com/kompellysagar/student-directory-demo). To publish later changes from this checkout:
 
 ```sh
 git add .
-git commit -m "Build student directory demo"
-git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
-git push -u origin main
+git commit -m "Describe your change"
+git push origin main
 ```
 
-Replace the remote URL with your repository URL. If `origin` is already configured, update it with `git remote set-url origin <repository-url>` instead of adding it again. The `.gitignore` excludes `.env`, virtual environments, Python caches, and local database files. Keep API keys and real student data out of the repository.
+The `.gitignore` excludes `.env`, virtual environments, Python caches, and local database files. Keep API keys and real student data out of the repository.
 
 ## Demo walkthrough
 
