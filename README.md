@@ -9,7 +9,8 @@ The project demonstrates how a browser interface, API routes, validation schemas
 ## What it does
 
 - Add, view, edit, and delete student records.
-- Search by student name, email, or course.
+- Search by student name, email, course, phone, or status.
+- Store contact and academic details: phone, date of birth, enrollment date, GPA, and enrollment status.
 - View directory totals, distinct courses, and average study year.
 - Validate email addresses, required fields, year range, and duplicate emails.
 - Browse and try the API through interactive Swagger documentation.
@@ -83,7 +84,7 @@ Content-Type: application/json
 }
 ```
 
-Names and courses are trimmed and cannot be blank. Email addresses are validated and normalized to lowercase. Study year must be between 1 and 10. Duplicate email addresses return HTTP `409`; missing student IDs return HTTP `404`.
+Names and courses are trimmed and cannot be blank. Email addresses are validated and normalized to lowercase. Study year must be between 1 and 10, GPA must be between 0 and 4, and status must be Active, Graduated, or On leave. Phone, birth date, and enrollment date are optional. Duplicate email addresses return HTTP `409`; missing student IDs return HTTP `404`.
 
 ## Project structure
 
@@ -155,4 +156,4 @@ The `.gitignore` excludes `.env`, virtual environments, Python caches, and local
 
 ## Scope
 
-This is an educational demo, not a production student information system. It does not include user authentication, role permissions, audit history, database migrations, or production privacy controls. Use fictional data and add those controls before adapting it for real records.
+This is an educational demo, not a production student information system. It does not include user authentication, role permissions, audit history, or production privacy controls. Use fictional data and add those controls before adapting it for real records. The app adds newly introduced student columns to an existing SQLite database at startup.

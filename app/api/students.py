@@ -41,6 +41,7 @@ def list_students(
                 Student.name.ilike(pattern),
                 Student.email.ilike(pattern),
                 Student.course.ilike(pattern),
+                Student.phone.ilike(pattern),
             )
         )
     statement = statement.offset(offset).limit(limit)
